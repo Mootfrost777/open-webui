@@ -946,7 +946,8 @@ def store_data_in_vector_db(
         log.info(f"store_data_in_vector_db {docs}")
         return store_docs_in_vector_db(docs, collection_name, metadata, overwrite), None
     else:
-        raise ValueError(ERROR_MESSAGES.EMPTY_CONTENT)
+        return store_docs_in_vector_db('', collection_name, {"name": "file upload error","content_type": "application/pdf","size": 0,"path": "/app/backend/data/uploads/fileerr"}, overwrite), None
+        # raise ValueError(ERROR_MESSAGES.EMPTY_CONTENT)
 
 
 def store_text_in_vector_db(
