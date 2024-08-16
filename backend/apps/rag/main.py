@@ -1191,7 +1191,10 @@ def store_doc(
         f.close()
 
         loader, known_type = get_loader(filename, file.content_type, file_path)
-        data = loader.load()
+        try:
+            data = loader.load()
+        except:
+            data = []
 
         try:
             result = store_data_in_vector_db(data, collection_name)
@@ -1246,7 +1249,10 @@ def process_doc(
         loader, known_type = get_loader(
             file.filename, file.meta.get("content_type"), file_path
         )
-        data = loader.load()
+        try:
+            data = loader.load()
+        except:
+            data = []
 
         try:
             result = store_data_in_vector_db(
@@ -1331,7 +1337,10 @@ def scan_docs_dir(user=Depends(get_admin_user)):
                 loader, known_type = get_loader(
                     filename, file_content_type[0], str(path)
                 )
-                data = loader.load()
+                try:
+                    data = loader.load()
+                except:
+                    data = []
 
                 try:
                     result = store_data_in_vector_db(data, collection_name)
