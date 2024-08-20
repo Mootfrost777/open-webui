@@ -932,20 +932,6 @@ async def get_all_models():
         openai_models = await get_openai_models()
         openai_models = openai_models["data"]
 
-    if app.state.config.ENABLE_OLLAMA_API:
-        ollama_models = await get_ollama_models()
-        ollama_models = [
-            {
-                "id": model["model"],
-                "name": model["name"],
-                "object": "model",
-                "created": int(time.time()),
-                "owned_by": "ollama",
-                "ollama": model,
-            }
-            for model in ollama_models["models"]
-        ]
-
     models = pipe_models + openai_models + ollama_models
 
     global_action_ids = [
